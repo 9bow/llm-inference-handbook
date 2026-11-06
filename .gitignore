@@ -33,3 +33,6 @@ testing/
 # Scratch (annotate-ui / playwright-cli)
 .playwright-cli/
 .agents/ui-review/
+
+# Local book export (PDF/EPUB), not tracked
+/book/

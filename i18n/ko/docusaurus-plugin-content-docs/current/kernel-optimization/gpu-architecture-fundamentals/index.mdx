@@ -1,0 +1,71 @@
+---
+sidebar_position: 2
+description: GPU 커널을 작성하고 최적화하는 데 쓰이는 GPU 하드웨어와 실행 모델을 실용적으로 이해합니다.
+keywords:
+    - GPU architecture
+    - GPU execution model
+    - streaming multiprocessors
+    - GPU memory hierarchy
+    - Tensor Cores
+---
+
+import GPUExecutionVisualizer from '@site/src/components/GPUExecutionVisualizer';
+
+# GPU 아키텍처
+
+GPU 커널을 작성하거나 튜닝하기 전에, GPU가 코드를 어떻게 실행하는지에 대한
+실용적인 이해가 필요합니다. 그렇지 않으면 "점유율을 높여라"나 "공유 메모리 뱅크
+충돌을 줄여라" 같은 조언은 외워야 할 규칙 목록에 불과합니다. 그 조언이 언제
+적용되고 언제 적용되지 않는지 제대로 이해할 수 없습니다.
+
+이 섹션은 커널 작업에 필요한 수준에서 현대 GPU 아키텍처를 설명합니다. 오늘날 LLM
+추론 생태계의 상당 부분을 CUDA가 장악하고 있으므로 세부 내용은 NVIDIA 하드웨어
+위주입니다. 하지만 핵심 개념은 AMD GPU와 기타 병렬 가속기에도 폭넓게 적용됩니다.
+
+## 하드웨어와 실행 모델 {#hardware-and-the-execution-model}
+
+하드웨어는 GPU에 물리적으로 존재하는 것입니다.
+[스트리밍 멀티프로세서(SM)](/kernel-optimization/gpu-architecture-fundamentals/streaming-multiprocessors/),
+[텐서 코어](/kernel-optimization/gpu-architecture-fundamentals/tensor-cores/),
+그리고
+[GPU 메모리 계층 구조](/kernel-optimization/gpu-architecture-fundamentals/gpu-memory/)를
+이루는 레지스터, 캐시, 공유 메모리, 고대역폭 메모리(HBM)가 여기에 해당합니다. 이
+자원들은 GPU가 연산 유닛 가까이에 얼마나 많은 작업과 데이터를 둘 수 있는지를
+결정합니다.
+
+실행 모델은 커널을 작성할 때 사용하는 추상화입니다. 코드는 스레드를 만들고 이를
+워프, 블록, 그리드로 구성합니다. GPU는 이 작업을 사용 가능한 하드웨어에 걸쳐
+스케줄링합니다.
+
+[커널 최적화](/kernel-optimization/kernel-optimization-for-llm-inference/)는 이
+두 관점을 연결합니다. 빠른 커널은 실행 모델을 하드웨어에 잘 대응시키며, 연산,
+메모리 대역폭, 레지스터, 공유 메모리, 스케줄링 용량의 한도를 지킵니다.
+
+## GPU 실행 및 메모리 맵 {#gpu-execution-and-memory-map}
+
+아래 시각 자료는 개별 스레드에서 SM에 이르기까지 작업의 흐름을 따라간 다음, 연산
+유닛에 데이터를 공급하는 메모리 계층을 보여 줍니다. 실행 계층 구조는 다음 네
+가지 용어로 정의됩니다.
+
+- [스레드](/kernel-optimization/gpu-architecture-fundamentals/threads-warps-blocks/#threads)는
+  가장 작은 논리적 작업 단위이며, 보통 원소 하나 또는 작은 원소 묶음을
+  처리합니다.
+- [워프](/kernel-optimization/gpu-architecture-fundamentals/threads-warps-blocks/#warps)는
+  NVIDIA SM이 함께 스케줄링하는 32개 스레드의 묶음입니다.
+- [스레드 블록](/kernel-optimization/gpu-architecture-fundamentals/threads-warps-blocks/#thread-blocks)은
+  공유 메모리와 동기화를 통해 협력할 수 있는 스레드들의 묶음입니다.
+- [스트리밍 멀티프로세서(SM)](/kernel-optimization/gpu-architecture-fundamentals/streaming-multiprocessors/#what-an-sm-contains)는
+  블록을 받아들이고 준비된 워프의 명령어를 발행하는 온칩 연산 유닛입니다.
+
+<GPUExecutionVisualizer />
+
+## 다음 단계 {#whats-next}
+
+아래 네 페이지에서는 실행 모델과 물리적 하드웨어를 나누어 설명한 다음, 커널 실행
+중에 두 관점이 어떻게 만나는지 보여 줍니다.
+
+```mdx-code-block
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />
+```

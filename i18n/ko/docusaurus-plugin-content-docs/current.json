@@ -1,0 +1,6 @@
+{
+  "sidebar.handbookSidebar.link.LLM Inference Handbook": {
+    "message": "LLM 추론 핸드북",
+    "description": "The label for link 'LLM Inference Handbook' in sidebar 'handbookSidebar', linking to '/'"
+  }
+}
