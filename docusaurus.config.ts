@@ -12,8 +12,10 @@ const config: Config = {
     'A practical handbook for engineers building, optimizing, scaling, and operating LLM inference systems in production.',
   favicon: 'images/favicon.ico',
 
-  url: 'https://handbook.modular.com',
-  baseUrl: '/',
+  // Overridable so a fork can deploy under a different host and path
+  // (for example https://<owner>.github.io/llm-inference-handbook/).
+  url: process.env.DOCUSAURUS_URL ?? 'https://handbook.modular.com',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
   trailingSlash: true,
 
   onBrokenLinks: 'throw',
