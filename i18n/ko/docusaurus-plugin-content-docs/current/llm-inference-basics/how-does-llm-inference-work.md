@@ -168,13 +168,13 @@ GPT-4 같은 디코더 전용 트랜스포머 모델에서 전체 추론 과정�
 경우가 많습니다. 실제 사용률은 시퀀스 길이, 배치 크기, 하드웨어 사양 같은 요인에
 따라 달라집니다.
 
-프리필에서 모니터링해야 할 핵심 지표는 첫 토큰까지의 시간(TTFT)입니다. TTFT는
+프리필에서 모니터링해야 할 핵심 지표는 TTFT(Time to First Token)입니다. TTFT는
 프롬프트를 제출한 시점부터 첫 토큰이 생성될 때까지의 지연 시간을 측정합니다.
 자세한 내용은 [추론 최적화](/inference-optimization/) 장에서 다룹니다.
 
 <figure>
   <Diagram name="llm-inference-prefill" alt="" />
-  <figcaption><b>그림 1.</b> 프리필 단계와 첫 토큰까지의 시간.</figcaption>
+  <figcaption><b>그림 1.</b> 프리필 단계와 TTFT.</figcaption>
 </figure>
 
 ### 디코드 {#decode}
@@ -218,7 +218,7 @@ LLM은 모든 것을 처음부터 다시 계산하지 않고 새 토큰의 키�
 [KV 캐시 오프로딩](/inference-optimization/kv-cache-offloading/)으로 비활성 캐시
 블록을 더 저렴한 메모리로 옮깁니다.
 
-디코드에서 모니터링해야 할 핵심 지표는 토큰 간 지연 시간(ITL)입니다. ITL은
+디코드에서 모니터링해야 할 핵심 지표는 ITL(Inter-Token Latency)입니다. ITL은
 시퀀스에서 연속한 토큰이 생성되는 사이의 시간입니다.
 
 <LatencyTimelineVisualizer />

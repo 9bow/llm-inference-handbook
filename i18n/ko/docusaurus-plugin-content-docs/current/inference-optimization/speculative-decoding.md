@@ -37,7 +37,7 @@ import LinkList from '@site/src/components/LinkList';
 
 이런 순차적 과정에는 두 가지 큰 문제가 있습니다.
 
-- **높은 토큰 간 지연 시간(ITL)**:
+- **높은 ITL(Inter-Token Latency)**:
   [토큰 사이의 지연](/llm-inference-basics/llm-inference-metrics/) 때문에 생성이
   느리게 느껴집니다.
 - **낮은 GPU 사용률**: GPU가 놀고 있어도 모델은 미래의 토큰을 미리 계산할 수
@@ -159,7 +159,7 @@ H100 GPU에서 vLLM으로 Llama-3.3-70B-Instruct를 서빙하면서, 여러 동�
 
 TP = 1에서는 기준선보다 전체 처리량이 더 일찍(동시 요청 약 20–30개 지점에서)
 정체되었습니다. 부하가 높을 때 드래프트 모델과 타깃 모델 간의 조율이 오버헤드를
-유발할 수 있다는 뜻입니다. 그래도 출력 토큰당 시간(TPOT)은 약 2× 개선되었습니다.
+유발할 수 있다는 뜻입니다. 그래도 TPOT는 약 2× 개선되었습니다.
 
 <figure>
   <img src={require('@site/docs/inference-optimization/img/tp-2-spec-decoding.png').default} alt="" />

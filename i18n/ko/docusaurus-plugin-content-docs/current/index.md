@@ -18,7 +18,7 @@ import StackQuiz from '@site/src/components/StackQuiz';
 
 *LLM 추론 핸드북*은 기술 용어집이자 가이드북이자 참고 자료를 하나로 모은
 책입니다. 핵심 개념과 성능 지표(예:
-[첫 토큰까지의 시간과 초당 토큰 수](/llm-inference-basics/llm-inference-metrics/))부터
+[TTFT와 TPS](/llm-inference-basics/llm-inference-metrics/))부터
 최적화 기법(예:
 [연속 배칭](/inference-optimization/static-dynamic-continuous-batching/),
 [프리픽스 캐싱](/inference-optimization/prefix-caching/)),
