@@ -40,6 +40,7 @@ jobs:
         env:
           DOCUSAURUS_URL: https://9bow.github.io
           DOCUSAURUS_BASE_URL: /llm-inference-handbook/
+          DOCUSAURUS_EDIT_URL: https://github.com/9bow/llm-inference-handbook/edit/main/
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3

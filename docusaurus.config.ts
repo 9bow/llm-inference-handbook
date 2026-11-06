@@ -1,10 +1,29 @@
-import type { Config } from '@docusaurus/types'
+import type { Config, LoadContext } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { themes as prismThemes } from 'prism-react-renderer'
 
 const tailwindConfig = require('./src/plugins/tailwind-config')
+const markdownSourcePlugin = require('docusaurus-markdown-source-plugin')
+const llmsPlugin = require('docusaurus-plugin-llms')
+
+// Overridable so a fork can deploy under a different host and path
+// (for example https://<owner>.github.io/llm-inference-handbook/) and point
+// "Edit this page" at its own repository.
+const siteUrl = process.env.DOCUSAURUS_URL ?? 'https://handbook.modular.com'
+const baseUrl = process.env.DOCUSAURUS_BASE_URL ?? '/'
+const editUrlBase =
+  process.env.DOCUSAURUS_EDIT_URL ??
+  'https://github.com/modular/llm-inference-handbook/edit/main/'
+
+// Docs source directory of the locale being built, so that the Markdown
+// copies (.md URLs) and llms.txt of a translated site come from the
+// translation instead of the English source.
+const localizedDocsDir = (context: LoadContext) =>
+  context.i18n.currentLocale === context.i18n.defaultLocale
+    ? 'docs'
+    : `i18n/${context.i18n.currentLocale}/docusaurus-plugin-content-docs/current`
 
 const config: Config = {
   title: 'LLM Inference Handbook',
@@ -12,10 +31,8 @@ const config: Config = {
     'A practical handbook for engineers building, optimizing, scaling, and operating LLM inference systems in production.',
   favicon: 'images/favicon.ico',
 
-  // Overridable so a fork can deploy under a different host and path
-  // (for example https://<owner>.github.io/llm-inference-handbook/).
-  url: process.env.DOCUSAURUS_URL ?? 'https://handbook.modular.com',
-  baseUrl: process.env.DOCUSAURUS_BASE_URL ?? '/',
+  url: siteUrl,
+  baseUrl,
   trailingSlash: true,
 
   onBrokenLinks: 'throw',
@@ -34,14 +51,14 @@ const config: Config = {
     {
       tagName: 'script',
       attributes: {
-        src: '/gtm-init.js'
+        src: `${baseUrl}gtm-init.js`
       }
     }
   ],
 
   scripts: [
     {
-      src: '/customerio.js',
+      src: `${baseUrl}customerio.js`,
       defer: true
     }
   ],
@@ -68,25 +85,23 @@ const config: Config = {
         ]
       }
     ],
-    [
-      'docusaurus-markdown-source-plugin',
-      {
+    (context: LoadContext) =>
+      markdownSourcePlugin(context, {
         docsPath: '/',
+        docsDir: localizedDocsDir(context),
         fullyQualifiedLinks: true,
         directive:
-          '> For the complete documentation index, see [llms.txt](/llms.txt).\n' +
+          `> For the complete documentation index, see [llms.txt](${siteUrl}${baseUrl}llms.txt).\n` +
           '> Markdown versions of all pages are available by appending .md to any URL.',
         htmlDirective:
           'IMPORTANT: To view this page as Markdown, append `.md` to the URL.\n' +
-          'For the complete documentation index, see <a href="/llms.txt">llms.txt</a>.',
+          `For the complete documentation index, see <a href="${siteUrl}${baseUrl}llms.txt">llms.txt</a>.`,
         containerSelector: '.doc-actions',
         copyButtonText: 'Copy as Markdown',
         copiedButtonText: 'Copied!'
-      }
-    ],
-    [
-      'docusaurus-plugin-llms',
-      {
+      }),
+    (context: LoadContext) =>
+      (llmsPlugin.default ?? llmsPlugin)(context, {
         title: 'LLM Inference Handbook',
         description:
           'A practical handbook for engineers building, optimizing, scaling, and operating LLM inference systems in production.',
@@ -95,7 +110,7 @@ const config: Config = {
           '- [LLM Inference Handbook](https://handbook.modular.com/index.md): A practical handbook for engineers building, optimizing, scaling, and operating LLM inference systems in production.\n',
         generateLLMsFullTxt: false,
         excludeImports: true,
-        docsDir: 'docs',
+        docsDir: localizedDocsDir(context),
         ignoreFiles: [
           '**/LICENSE',
           '**/README.md',
@@ -113,15 +128,19 @@ const config: Config = {
           'infrastructure-and-operations/**/*'
         ],
         includeUnmatchedLast: true
-      }
-    ],
+      }),
     [
       '@docusaurus/plugin-content-docs',
       {
         routeBasePath: '/',
         path: './docs',
         sidebarPath: './sidebars.ts',
-        editUrl: 'https://github.com/modular/llm-inference-handbook/edit/main/',
+        // Translated pages link to their file under i18n/, not to the
+        // English source.
+        editUrl: ({ locale, versionDocsDirPath, docPath }) =>
+          locale === 'en'
+            ? `${editUrlBase}${versionDocsDirPath}/${docPath}`
+            : `${editUrlBase}i18n/${locale}/docusaurus-plugin-content-docs/current/${docPath}`,
         breadcrumbs: true,
         exclude: ['**/README.md', '**/LICENSE', 'adr/**'],
         remarkPlugins: [remarkMath],
