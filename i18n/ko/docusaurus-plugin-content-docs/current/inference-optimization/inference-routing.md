@@ -223,7 +223,7 @@ LoRA 어댑터 정보를 수집하고, 요청을 최적의 레플리카로 라�
 - **정밀한 캐시 인식 라우팅**. 워커가 KV 캐시 이벤트나 세부 캐시 메타데이터를
   내보내서, 라우터가 캐시 배치 상황에 대한 정확한 전역 뷰를 유지할 수 있게
   합니다. 예를 들어
-  [llm-d](https://llm-d.ai/docs/guides/precise-prefix-cache-aware)는 vLLM과
+  [llm-d][llm-d-prefix-cache]는 vLLM과
   SGLang의 KV 캐시 이벤트를 사용하여 캐시 블록이 서빙 Pod 중 어디에 있는지
   추적합니다. 그런 다음 스케줄러는 들어온 요청의 프리픽스 중 얼마만큼을 각
   워커에서 이미 사용할 수 있는지를 기준으로 워커에 점수를 매깁니다. 또한 캐시
@@ -277,11 +277,11 @@ LoRA 어댑터 정보를 수집하고, 요청을 최적의 레플리카로 라�
   부하 분산을 대체 수단으로 두는 캐시 인식 라우팅 휴리스틱을 사용합니다. 기수
   트리(radix tree)와 큐 카운트로 근사적인 프리픽스 지역성을 추적하고, 시스템
   불균형 정도에 따라 캐시 인식 라우팅과 최단 큐 라우팅 사이를 전환합니다.
-- [Dynamo](https://docs.nvidia.com/dynamo/components/router/router-guide)는 워커
+- [Dynamo][dynamo-router-guide]는 워커
   전반의 프리필 비용과 디코드 비용을 모두 추정하여 요청을 라우팅합니다. KV 캐시
   겹침, 활성 디코드 블록, 워크로드 배치를 고려하여 중복 연산을 줄이고 서빙
   효율을 높입니다.
-- [llm-d](https://llm-d.ai/docs/architecture/core/router)는
+- [llm-d](https://llm-d.ai/docs/architecture/router)는
   [Gateway API Inference Extension](https://github.com/kubernetes-sigs/gateway-api-inference-extension)
   프로젝트 위에 추론 스케줄링을 구축합니다. 캐시 지역성, 워커 부하, 기타 런타임
   신호를 결합하여 Kubernetes에서 지능적인 요청 라우팅과 스케줄링을 제공합니다.
@@ -312,7 +312,10 @@ LoRA 어댑터 정보를 수집하고, 요청을 최적의 레플리카로 라�
 ## 추가 자료 {#additional-resources}
 
 - [Kubernetes Gateway API Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/)
-- [Dynamo Router Guide](https://docs.nvidia.com/dynamo/components/router/router-guide)
+- [Dynamo Router Guide](https://docs.nvidia.com/dynamo/latest/knowledge-base/modular-components/router/router-guide)
 - [Intelligent Inference Scheduling with llm-d](https://llm-d.ai/blog/intelligent-inference-scheduling-with-llm-d)
 - [KV-Cache Wins You Can See](https://llm-d.ai/blog/kvcache-wins-you-can-see)
 </LinkList>
+
+[llm-d-prefix-cache]: https://llm-d.ai/docs/architecture/kv-management/prefix-cache-aware-routing
+[dynamo-router-guide]: https://docs.nvidia.com/dynamo/latest/knowledge-base/modular-components/router/router-guide

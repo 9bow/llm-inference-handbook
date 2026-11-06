@@ -94,7 +94,7 @@ PD 분리의 아이디어는 간단합니다. 성격이 매우 다른 두 작업
 [SGLang](https://docs.sglang.io/docs/advanced_features/pd_disaggregation),
 [MAX](https://max.modular.com/cli/serve/#--pipeline-role-pipeline_role),
 [Dynamo](https://docs.nvidia.com/dynamo/dev/user-guides/disaggregated-serving),
-[llm-d](https://llm-d.ai/docs/architecture/advanced/disaggregation)가 있습니다.
+[llm-d][llm-d-pd]가 있습니다.
 
 ## 분리가 항상 만능 해결책은 아닙니다 {#disaggregation-isnt-always-a-silver-bullet}
 
@@ -218,3 +218,5 @@ PD 분리가 유망해 보이더라도 모든 상황에 맞는 해결책은 아�
 - [The Five Eras of KVCache](https://www.modular.com/blog/the-five-eras-of-kvcache?utm_source=llm_handbook)
 - [Prefill-as-a-Service: KVCache of Next-Generation Models Could Go Cross-Datacenter](https://arxiv.org/abs/2604.15039)
 </LinkList>
+
+[llm-d-pd]: https://llm-d.ai/docs/architecture/disaggregation/pd-disaggregation

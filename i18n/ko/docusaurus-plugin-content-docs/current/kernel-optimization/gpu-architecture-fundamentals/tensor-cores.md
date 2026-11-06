@@ -149,7 +149,7 @@ CUDA 코어는 일반적인 부동소수점 및 정수 연산을 위한 범용 �
 
 ## 추가 자료 {#additional-resources}
 
-- [CUDA C++ Programming Guide: WMMA](https://docs.nvidia.com/cuda/cuda-c-programming-guide/#wmma)
+- [CUDA C++ Programming Guide: WMMA](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/cpp-language-extensions.html#wmma)
 - [NVIDIA Tensor Cores for HPC](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html)
 - [PTX ISA: Matrix Multiply and Accumulate Instructions](https://docs.nvidia.com/cuda/parallel-thread-execution/#warp-level-matrix-instructions)
 </LinkList>

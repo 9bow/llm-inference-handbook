@@ -243,7 +243,7 @@ KV 캐시 오프로딩은 세 프레임워크 모두에서 활발히 개발되�
   노드, 인스턴스 사이에서 KV 캐시를 저장, 조회, 전송할 수 있게 해 주며,
   프리필-디코드 분리를 지원하고 캐시 재사용률을 높입니다. vLLM, SGLang, LMCache
   같은 시스템과 폭넓게 통합되어 있습니다.
-- [NVIDIA Dynamo KVBM](https://docs.nvidia.com/dynamo/knowledge-base/modular-components/kvbm/overview)(KV
+- [NVIDIA Dynamo KVBM](https://docs.nvidia.com/dynamo/latest/cli/kv-cache-offloading/overview)(KV
   Block Manager)은 이기종 분산 환경에서 추론 작업에 쓰이는 KV 블록의 메모리
   할당, 관리, 원격 공유를 처리하는 통합 메모리 계층입니다.
 

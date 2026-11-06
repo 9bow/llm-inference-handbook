@@ -168,6 +168,6 @@ can perform well at moderate occupancy.
 ## Additional resources
 
 - [CUDA C++ Best Practices Guide: Occupancy](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/#occupancy)
-- [CUDA Occupancy Calculator](https://docs.nvidia.com/cuda/cuda-occupancy-calculator/index.html)
+- [CUDA Occupancy Calculator](https://docs.nvidia.com/nsight-compute/NsightCompute/index.html#occupancy-calculator)
 - [NVIDIA Hopper Architecture In-Depth](https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/)
 </LinkList>

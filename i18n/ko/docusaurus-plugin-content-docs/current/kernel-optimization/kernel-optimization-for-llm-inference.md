@@ -220,6 +220,6 @@ GPU 용어로 보면 냉장고는 전역 메모리(HBM)이고, 조리대는 빠�
 
 ## 추가 자료 {#additional-resources}
 
-- [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/)
+- [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-programming-guide/index.html)
 - [What exactly is “CUDA”?](https://www.modular.com/blog/democratizing-compute-part-2-what-exactly-is-cuda?utm_source=llm_handbook)
 </LinkList>
